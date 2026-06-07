@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "title": "Invitație — Dmytro & Olena"
+  },
+  "lang": {
+    "ua": "UA",
+    "en": "EN",
+    "ro": "RO"
+  },
+  "screen1": {
+    "invitation_arrived": "Ați primit o invitație",
+    "tap_envelope": "Atingeți plicul"
+  },
+  "screen2": {
+    "groom_name": "Dmytro",
+    "bride_name": "Olena",
+    "and": "♥",
+    "wedding_date": "8 august 2026"
+  },
+  "invitation": {
+    "title": "Dragi prieteni și familie!",
+    "body": "Cu mare bucurie vă invităm să împărtășiți alături de noi una dintre cele mai importante zile din viața noastră. Această zi va fi plină de iubire, râsete și nenumărate amintiri — și ne dorim cu adevărat să fiți alături de noi. Vă rugăm să vă confirmați prezența și să urmăriți actualizările de pe acest site — aici vor apărea toate detaliile despre program, locație și codul vestimentar."
+  },
+  "program": {
+    "title": "Program",
+    "items": [
+      {
+        "time": "12:00",
+        "title": "Întâlnirea mirelui și a miresei",
+        "desc": "Adunarea invitaților, întâlnirea emoționantă a mirilor, ne cunoaștem și ne pregătim de sărbătoare"
+      },
+      {
+        "time": "14:00",
+        "title": "Ceremonia",
+        "desc": "Pregătiți batistele pentru un moment emoționant"
+      },
+      {
+        "time": "16:00",
+        "title": "Sosirea la restaurant",
+        "desc": "Socializăm în zona de welcome, ne ocupăm locurile și ne pregătim să mâncăm delicios"
+      },
+      {
+        "time": "17:00",
+        "title": "Începutul petrecerii",
+        "desc": "Ne așteaptă distracția, un prezentator minunat, concursuri și o dispoziție grozavă"
+      },
+      {
+        "time": "20:00",
+        "title": "Tortul",
+        "desc": "Sperăm și știm că veți mai avea energie pentru tortul festiv și dansurile care urmează"
+      }
+    ]
+  },
+  "countdown": {
+    "title": "Până la sărbătoare",
+    "days": "zile",
+    "hours": "ore",
+    "minutes": "minute",
+    "seconds": "secunde"
+  },
+  "location": {
+    "title": "Locație",
+    "address": "Castel Transilvania"
+  },
+  "footer": {
+    "initials": "D & O",
+    "follow": "urmați site-ul, știrile și informațiile vor fi actualizate",
+    "see_you": "Pe curând",
+    "back_to_envelope": "Înapoi la invitație"
+  },
+  "images": {
+    "photo1": "images/photo1.jpg",
+    "photo2": "images/photo2.jpg"
+  }
+}
