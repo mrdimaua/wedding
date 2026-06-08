@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "title": "Invitation — Dmytro & Elena"
+  },
+  "lang": {
+    "ua": "UA",
+    "en": "EN",
+    "ro": "RO"
+  },
+  "screen1": {
+    "invitation_arrived": "You have received an invitation",
+    "tap_envelope": "Tap the envelope"
+  },
+  "screen2": {
+    "groom_name": "Dmytro",
+    "bride_name": "Elena",
+    "and": "♥",
+    "wedding_date": "August 8, 2026"
+  },
+  "invitation": {
+    "title": "Dear friends and family!",
+    "body": "With great joy we invite you to share with us one of the most important days of our lives. This day will be filled with love, laughter and countless memories — and we truly want you to be by our side. Please confirm your attendance and follow the updates on this website — here you will find all the details about the program, location and dress code."
+  },
+  "program": {
+    "title": "Program",
+    "items": [
+      {
+        "time": "12:00",
+        "title": "Meeting of the groom and the bride",
+        "desc": "Gathering of guests, a touching meeting of the couple, getting to know each other and getting into the festive mood"
+      },
+      {
+        "time": "14:00",
+        "title": "Ceremony",
+        "desc": "Get your handkerchiefs ready for a touching moment"
+      },
+      {
+        "time": "16:00",
+        "title": "Arrival at the restaurant",
+        "desc": "We mingle in the welcome zone, take our seats and get ready for a delicious meal"
+      },
+      {
+        "time": "17:00",
+        "title": "Party start",
+        "desc": "Fun awaits us, a wonderful host, contests and a great mood"
+      },
+      {
+        "time": "20:00",
+        "title": "Cake",
+        "desc": "We hope and know that you will still have the energy for the festive cake and dancing that follows"
+      }
+    ]
+  },
+  "countdown": {
+    "title": "Until the celebration",
+    "days": "days",
+    "hours": "hours",
+    "minutes": "minutes",
+    "seconds": "seconds"
+  },
+  "palette": {
+    "title": "Wedding style and colors",
+    "description": "We don't want to limit you in choosing your festive outfit, but as a hint you can use the following tones:",
+    "colors": [
+      { "name": "White", "hex": "#F6F1E9" },
+      { "name": "Blush pink", "hex": "#F0B8C4" },
+      { "name": "Dusty rose", "hex": "#CE7A8E" },
+      { "name": "Red", "hex": "#C1352F" },
+      { "name": "Burgundy", "hex": "#7A1F38" },
+      { "name": "Terracotta", "hex": "#C76B3F" },
+      { "name": "Gold", "hex": "#E3B23C" },
+      { "name": "Sage", "hex": "#93A07A" }
+    ]
+  },
+  "restaurant": {
+    "title": "Restaurant",
+    "name": "Castel Transilvania",
+    "coordinates": "47.641581, 23.590641",
+    "copy": "Copy",
+    "copied": "Copied"
+  },
+  "location": {
+    "title": "Location",
+    "address": "Castel Transilvania"
+  },
+  "footer": {
+    "initials": "D & E",
+    "follow": "follow the website, news and information will be updated",
+    "see_you": "See you soon",
+    "back_to_envelope": "Back to the invitation"
+  },
+  "images": {
+    "photo1": "images/photo1.jpg",
+    "photo2": "images/photo2.jpg"
+  }
+}
