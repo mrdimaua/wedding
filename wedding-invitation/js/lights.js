@@ -21,6 +21,13 @@ export function initLights() {
 
   initialized = true;
 
+  // Поважаємо налаштування "зменшити рух" — без анімацій (продуктивність/доступність)
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return;
+  }
+
+  const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+
   // 1. Похитування кожної лампочки
   const bulbs = document.querySelectorAll(".bulb-item");
   bulbs.forEach((bulb) => {
@@ -57,7 +64,9 @@ export function initLights() {
     });
   });
 
-  // 3. Параллакс від руху миші
+  // 3. Параллакс від руху миші — лише для десктопа (на тачі марно і грузить)
+  if (coarsePointer) return;
+
   let mouseX = 0;
   let mouseY = 0;
   let rafPending = false;
