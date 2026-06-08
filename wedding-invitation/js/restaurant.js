@@ -85,6 +85,23 @@ async function detectPhotos() {
 
 /* ---------- Карусель ---------- */
 
+function setLoader(visible) {
+  const loader = document.getElementById("restaurant-loader");
+  if (loader) loader.hidden = !visible;
+}
+
+function preloadFirst(urls) {
+  // Чекаємо завантаження першого фото, щоб не показувати порожній слайд
+  if (!urls.length) return Promise.resolve();
+  return new Promise((resolve) => {
+    const img = new Image();
+    const done = () => resolve();
+    img.onload = done;
+    img.onerror = done;
+    img.src = urls[0];
+  });
+}
+
 function buildCarousel(urls) {
   const carousel = document.getElementById("restaurant-carousel");
   const track = document.getElementById("carousel-track");
@@ -92,10 +109,12 @@ function buildCarousel(urls) {
   if (!carousel || !track || !dotsWrap) return;
 
   if (!urls.length) {
+    setLoader(false);
     carousel.hidden = true;
     return;
   }
 
+  setLoader(false);
   carousel.hidden = false;
   track.innerHTML = "";
   dotsWrap.innerHTML = "";
@@ -198,10 +217,15 @@ export function initRestaurant() {
 
   initCopyButtons();
 
+  setLoader(true);
   detectPhotos()
-    .then(buildCarousel)
+    .then(async (urls) => {
+      await preloadFirst(urls);
+      buildCarousel(urls);
+    })
     .catch((err) => {
       console.error("Restaurant carousel error:", err);
+      setLoader(false);
       const carousel = document.getElementById("restaurant-carousel");
       if (carousel) carousel.hidden = true;
     });

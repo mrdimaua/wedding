@@ -896,6 +896,39 @@ body {
   display: inline-flex;
 }
 
+.restaurant-loader {
+  max-width: 760px;
+  margin: 0 auto;
+  aspect-ratio: 16 / 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5efe6, #ece4d7);
+  border-radius: 12px;
+  box-shadow: var(--shadow-soft);
+}
+
+.loader-spinner {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 3px solid rgba(200, 144, 31, 0.25);
+  border-top-color: #c8901f;
+  animation: loader-spin 0.9s linear infinite;
+}
+
+@keyframes loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader-spinner {
+    animation-duration: 2.4s;
+  }
+}
+
 .restaurant-carousel {
   position: relative;
   max-width: 760px;
