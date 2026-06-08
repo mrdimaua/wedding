@@ -3,7 +3,7 @@ const STORAGE_KEY = "wedding-invite-lang";
 
 /** Вбудований fallback — працює навіть якщо fetch не вдався (file://, офлайн) */
 const FALLBACK_LOCALE = {
-  meta: { title: "Запрошення — Дмитро & Олена" },
+  meta: { title: "Запрошення — Дмитро & Елена" },
   lang: { ua: "UA", en: "EN", ro: "RO" },
   screen1: {
     invitation_arrived: "Вам надійшло запрошення",
@@ -11,7 +11,7 @@ const FALLBACK_LOCALE = {
   },
   screen2: {
     groom_name: "Дмитро",
-    bride_name: "Олена",
+    bride_name: "Елена",
     and: "♥",
     wedding_date: "8 серпня 2026",
   },
