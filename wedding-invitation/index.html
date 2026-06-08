@@ -192,9 +192,73 @@
         </div>
       </section>
 
+      <section class="palette-section" aria-labelledby="palette-title">
+        <h2 id="palette-title" class="section-title" data-i18n="palette.title"></h2>
+        <p class="palette-description" data-i18n="palette.description"></p>
+        <ul class="palette-swatches" id="palette-swatches"></ul>
+      </section>
+
+      <section class="restaurant-section" aria-labelledby="restaurant-title">
+        <h2 id="restaurant-title" class="section-title" data-i18n="restaurant.title"></h2>
+
+        <div class="restaurant-info">
+          <div class="copy-row">
+            <span class="restaurant-name" id="restaurant-name" data-i18n="restaurant.name"></span>
+            <button
+              type="button"
+              class="copy-btn"
+              data-copy-target="restaurant-name"
+              data-i18n-aria="restaurant.copy"
+            >
+              <span class="ic ic-copy" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg>
+              </span>
+              <span class="ic ic-check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </span>
+            </button>
+          </div>
+
+          <div class="copy-row">
+            <span class="restaurant-coords" id="restaurant-coords" data-i18n="restaurant.coordinates"></span>
+            <button
+              type="button"
+              class="copy-btn"
+              data-copy-target="restaurant-coords"
+              data-i18n-aria="restaurant.copy"
+            >
+              <span class="ic ic-copy" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg>
+              </span>
+              <span class="ic ic-check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div class="restaurant-carousel" id="restaurant-carousel" hidden>
+          <button type="button" class="carousel-nav carousel-prev" aria-label="Prev">&#8249;</button>
+          <div class="carousel-viewport">
+            <div class="carousel-track" id="carousel-track"></div>
+          </div>
+          <button type="button" class="carousel-nav carousel-next" aria-label="Next">&#8250;</button>
+          <div class="carousel-dots" id="carousel-dots"></div>
+        </div>
+      </section>
+
       <section class="location-section" aria-labelledby="location-title">
         <h2 id="location-title" class="section-title" data-i18n="location.title"></h2>
-        <p class="location-address" data-i18n="location.address"></p>
         <div class="map-wrap">
           <iframe
             id="google-map"

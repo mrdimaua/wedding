@@ -58,6 +58,27 @@
     "minutes": "minute",
     "seconds": "secunde"
   },
+  "palette": {
+    "title": "Stilul și culorile nunții",
+    "description": "Nu vrem să vă limităm în alegerea ținutei festive, dar ca sugestie vă puteți orienta după următoarele tonuri:",
+    "colors": [
+      { "name": "Alb", "hex": "#F6F1E9" },
+      { "name": "Roz", "hex": "#F0B8C4" },
+      { "name": "Roz prăfuit", "hex": "#CE7A8E" },
+      { "name": "Roșu", "hex": "#C1352F" },
+      { "name": "Bordo", "hex": "#7A1F38" },
+      { "name": "Teracotă", "hex": "#C76B3F" },
+      { "name": "Auriu", "hex": "#E3B23C" },
+      { "name": "Salvie", "hex": "#93A07A" }
+    ]
+  },
+  "restaurant": {
+    "title": "Restaurant",
+    "name": "Castel Transilvania",
+    "coordinates": "47.641581, 23.590641",
+    "copy": "Copiază",
+    "copied": "Copiat"
+  },
   "location": {
     "title": "Locație",
     "address": "Castel Transilvania"

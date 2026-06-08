@@ -9,6 +9,8 @@ import { initEnvelope, ensureWelcomeScreen } from "./envelope.js";
 import { initLights } from "./lights.js";
 import { initProgramTimeline, rebuildProgram } from "./program-timeline.js";
 import { initCountdown } from "./countdown.js";
+import { initPalette, rebuildPalette } from "./palette.js";
+import { initRestaurant } from "./restaurant.js";
 
 let mainInitialized = false;
 
@@ -23,6 +25,7 @@ async function setLanguage(lang) {
 
   if (mainInitialized) {
     rebuildProgram();
+    rebuildPalette();
   }
 }
 
@@ -42,6 +45,8 @@ function initMainContent() {
     initLights();
     initProgramTimeline();
     initCountdown();
+    initPalette();
+    initRestaurant();
   } catch (err) {
     console.error("Main content init failed:", err);
   }
