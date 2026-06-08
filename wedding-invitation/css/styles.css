@@ -908,6 +908,10 @@ body {
   box-shadow: var(--shadow-soft);
 }
 
+.restaurant-loader[hidden] {
+  display: none;
+}
+
 .loader-spinner {
   width: 44px;
   height: 44px;

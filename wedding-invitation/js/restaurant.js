@@ -85,9 +85,12 @@ async function detectPhotos() {
 
 /* ---------- Карусель ---------- */
 
-function setLoader(visible) {
+// Показуємо РІВНО один елемент: "loader" | "carousel" | "none"
+function showState(state) {
   const loader = document.getElementById("restaurant-loader");
-  if (loader) loader.hidden = !visible;
+  const carousel = document.getElementById("restaurant-carousel");
+  if (loader) loader.hidden = state !== "loader";
+  if (carousel) carousel.hidden = state !== "carousel";
 }
 
 function preloadFirst(urls) {
@@ -109,13 +112,11 @@ function buildCarousel(urls) {
   if (!carousel || !track || !dotsWrap) return;
 
   if (!urls.length) {
-    setLoader(false);
-    carousel.hidden = true;
+    showState("none");
     return;
   }
 
-  setLoader(false);
-  carousel.hidden = false;
+  showState("carousel");
   track.innerHTML = "";
   dotsWrap.innerHTML = "";
 
@@ -217,7 +218,7 @@ export function initRestaurant() {
 
   initCopyButtons();
 
-  setLoader(true);
+  showState("loader");
   detectPhotos()
     .then(async (urls) => {
       await preloadFirst(urls);
@@ -225,8 +226,6 @@ export function initRestaurant() {
     })
     .catch((err) => {
       console.error("Restaurant carousel error:", err);
-      setLoader(false);
-      const carousel = document.getElementById("restaurant-carousel");
-      if (carousel) carousel.hidden = true;
+      showState("none");
     });
 }
