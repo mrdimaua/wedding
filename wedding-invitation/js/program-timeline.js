@@ -77,7 +77,7 @@ function layoutPath() {
   const d = buildZigzagPath(items.length, totalHeight, centerX, amplitude);
   pathEl.setAttribute("d", d);
 
-  return { pathEl, totalHeight, svg };
+  return { pathEl, totalHeight, svg, centerX, svgWidth };
 }
 
 let revealObserver = null;
@@ -106,34 +106,46 @@ export function initProgramTimeline() {
   let pathData = null;
   let pathLength = 0;
   let rafId = null;
+  let lastLength = -1;
+  let resizeTimer = null;
 
   const updateHeart = () => {
-    if (!pathData || !heart) return;
+    if (!pathData || !heart || !timeline) return;
 
-    const { pathEl } = pathData;
+    const { pathEl, centerX } = pathData;
     pathLength = pathEl.getTotalLength();
     if (!pathLength) return;
 
     const rect = timeline.getBoundingClientRect();
-    const viewportCenter = window.innerHeight * 0.5;
+    const range = rect.height;
+    if (range <= 0) return;
 
-    const sectionTop = window.scrollY + rect.top;
-    const sectionBottom = sectionTop + rect.height;
-    const scrollCenter = window.scrollY + viewportCenter;
+    // Лише viewport-координати — стабільніше на iOS zoom / overscroll
+    const vv = window.visualViewport;
+    const viewportCenter = vv ? vv.offsetTop + vv.height * 0.5 : window.innerHeight * 0.5;
 
-    const progress = (scrollCenter - sectionTop) / (sectionBottom - sectionTop);
-    const clamped = Math.max(0, Math.min(1, progress));
-    const length = clamped * pathLength;
+    let progress = (viewportCenter - rect.top) / range;
+    progress = Math.max(0, Math.min(1, progress));
+
+    // На краях фіксуємо — менше смикання при дальшому скролі
+    if (progress <= 0.002) progress = 0;
+    if (progress >= 0.998) progress = 1;
+
+    const length = progress * pathLength;
+
+    // На краях не оновлюємо DOM без потреби
+    if (
+      (progress === 0 || progress === 1) &&
+      lastLength >= 0 &&
+      Math.abs(length - lastLength) < 0.5
+    ) {
+      return;
+    }
+    lastLength = length;
 
     const point = pathEl.getPointAtLength(length);
-    const svg = document.getElementById("program-path-svg");
-    const svgRect = svg.getBoundingClientRect();
-
-    const x = svgRect.left + point.x;
-    const y = svgRect.top + point.y;
-
-    heart.style.left = `${x}px`;
-    heart.style.top = `${y}px`;
+    heart.style.left = `calc(50% + ${point.x - centerX}px)`;
+    heart.style.top = `${point.y}px`;
   };
 
   const onScroll = () => {
@@ -145,6 +157,7 @@ export function initProgramTimeline() {
   };
 
   const relayout = () => {
+    lastLength = -1;
     pathData = layoutPath();
     if (pathData?.pathEl) {
       pathLength = pathData.pathEl.getTotalLength();
@@ -156,9 +169,12 @@ export function initProgramTimeline() {
   initScrollReveal();
 
   window.addEventListener("scroll", onScroll, { passive: true });
+  window.visualViewport?.addEventListener("scroll", onScroll, { passive: true });
+  window.visualViewport?.addEventListener("resize", onScroll, { passive: true });
+
   window.addEventListener("resize", () => {
-    relayout();
-    onScroll();
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(relayout, 150);
   });
 
   updateHeart();

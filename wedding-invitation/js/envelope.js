@@ -1,14 +1,13 @@
-/** Flap CSS transition duration (ms) — keep in sync with styles.css */
-const FLAP_DURATION_MS = 700;
-const FLAP_BUFFER_MS = 80;
-const LETTER_RISE_MS = 900;
-const LETTER_EXPAND_MS = 650;
-const LETTER_FULLSCREEN_MS = 700;
+const FLIP_DURATION_MS = 950;
+const FLIP_BUFFER_MS = 80;
+const ZOOM_DURATION_MS = 1100;
+const ZOOM_BUFFER_MS = 60;
 
 function getElements() {
   return {
     btn: document.getElementById("envelope-btn"),
     envelope: document.getElementById("envelope"),
+    card: document.getElementById("envelope-card"),
     letter: document.getElementById("envelope-letter"),
     screenEnvelope: document.getElementById("screen-envelope"),
     screenMain: document.getElementById("screen-main"),
@@ -22,20 +21,41 @@ function showBackToEnvelope(show) {
   backBtn.hidden = !show;
 }
 
-/** Скидає UI після refresh / bfcache — щоб знову був екран з конвертом */
-export function ensureWelcomeScreen() {
-  const { btn, envelope, letter, screenEnvelope, screenMain } = getElements();
-  if (!screenEnvelope || !screenMain) return;
+function resetEnvelopeAnimation() {
+  const { btn, envelope, card, letter } = getElements();
 
-  screenEnvelope.style.display = "";
-  screenEnvelope.classList.remove("is-opening", "is-done");
+  if (envelope) {
+    envelope.classList.remove("is-opening", "is-open", "is-unfolded");
+    envelope.style.cssText = "";
+  }
 
-  if (envelope) envelope.classList.remove("is-open", "envelope--letter-out");
+  if (card) {
+    card.classList.remove("is-flipped", "is-expanding", "is-fullscreen");
+    card.style.cssText = "";
+  }
+
   if (letter) {
     letter.classList.remove("is-rising", "is-expanding", "is-fullscreen");
     letter.style.cssText = "";
   }
+
   if (btn) btn.disabled = false;
+}
+
+function resetEnvelopeState() {
+  const { screenEnvelope } = getElements();
+
+  screenEnvelope?.classList.remove("is-opening", "is-done");
+  if (screenEnvelope) screenEnvelope.style.display = "";
+
+  resetEnvelopeAnimation();
+}
+
+export function ensureWelcomeScreen() {
+  const { screenMain } = getElements();
+  if (!screenMain) return;
+
+  resetEnvelopeState();
 
   screenMain.classList.add("hidden");
   screenMain.classList.remove("reveal");
@@ -51,11 +71,25 @@ export function resetToEnvelopeScreen() {
 }
 
 export function initEnvelope(onOpenComplete) {
-  const { btn, envelope, letter, screenEnvelope, screenMain, backBtn } = getElements();
+  const { btn, envelope, card, screenEnvelope, screenMain, backBtn } = getElements();
 
-  if (!btn || !envelope || !letter || !screenEnvelope || !screenMain) return;
+  if (!btn || !envelope || !card || !screenEnvelope || !screenMain) return;
 
   let opened = false;
+
+  const startZoom = () => {
+    const rect = card.getBoundingClientRect();
+    const scale = Math.max(window.innerWidth / rect.width, window.innerHeight / rect.height);
+
+    card.style.setProperty("--zoom-scale", scale.toFixed(4));
+    card.classList.add("is-expanding");
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        card.classList.add("is-fullscreen");
+      });
+    });
+  };
 
   const openEnvelope = () => {
     if (opened) return;
@@ -63,22 +97,13 @@ export function initEnvelope(onOpenComplete) {
     btn.disabled = true;
 
     screenEnvelope.classList.add("is-opening");
-    envelope.classList.add("is-open");
+    envelope.classList.add("is-opening", "is-open", "is-unfolded");
+    card.classList.add("is-flipped");
 
-    const flapDone = FLAP_DURATION_MS + FLAP_BUFFER_MS;
+    const zoomStart = FLIP_DURATION_MS + FLIP_BUFFER_MS;
+    const zoomDone = zoomStart + ZOOM_DURATION_MS + ZOOM_BUFFER_MS;
 
-    setTimeout(() => {
-      envelope.classList.add("envelope--letter-out");
-      letter.classList.add("is-rising");
-    }, flapDone);
-
-    setTimeout(() => {
-      letter.classList.add("is-expanding");
-    }, flapDone + LETTER_RISE_MS);
-
-    setTimeout(() => {
-      letter.classList.add("is-fullscreen");
-    }, flapDone + LETTER_RISE_MS + LETTER_EXPAND_MS);
+    setTimeout(startZoom, zoomStart);
 
     setTimeout(() => {
       screenEnvelope.classList.add("is-done");
@@ -92,10 +117,9 @@ export function initEnvelope(onOpenComplete) {
 
       setTimeout(() => {
         screenEnvelope.style.display = "none";
-        envelope.classList.remove("envelope--letter-out");
-        letter.classList.remove("is-rising", "is-expanding", "is-fullscreen");
-      }, 800);
-    }, flapDone + LETTER_RISE_MS + LETTER_EXPAND_MS + LETTER_FULLSCREEN_MS);
+        resetEnvelopeAnimation();
+      }, 700);
+    }, zoomDone);
   };
 
   btn.addEventListener("click", openEnvelope);

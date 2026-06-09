@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1105 847" fill="none" aria-hidden="true">
+  <defs>
+    <filter id="mono-emboss" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="1.6" stdDeviation="0.35" flood-color="#3A0810" flood-opacity="0.72" result="shadow"/>
+      <feDropShadow dx="0" dy="-0.6" stdDeviation="0.25" flood-color="#FFFFFF" flood-opacity="0.38" result="highlight"/>
+      <feMerge>
+        <feMergeNode in="shadow"/>
+        <feMergeNode in="highlight"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <image xlink:href="images/envelope/envelope.png" x="0" y="0" width="1105" height="847" preserveAspectRatio="none"/>
+  <text class="env-monogram" x="570.5" y="555" text-anchor="middle" dominant-baseline="middle" filter="url(#mono-emboss)">D♥E</text>
+</svg>

@@ -76,7 +76,7 @@ async function bootstrap() {
   }
 
   bindLanguageSwitcher();
-  initEnvelope(() => {
+  await initEnvelope(() => {
     initMainContent();
     window.dispatchEvent(new Event("resize"));
   });
@@ -88,12 +88,12 @@ if (window.location.protocol === "file:") {
   showBootHint();
 }
 
-bootstrap().catch((err) => {
+bootstrap().catch(async (err) => {
   console.error("Failed to load invitation:", err);
   showBootHint();
   ensureWelcomeScreen();
   try {
-    initEnvelope(() => initMainContent());
+    await initEnvelope(() => initMainContent());
   } catch (e) {
     console.error(e);
   }
