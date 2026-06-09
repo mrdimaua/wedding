@@ -1,25 +1,15 @@
 const BASE = "images/dimalena/";
 const PREFIX = "photo";
-const MAX_PHOTOS = 10;
+const VISIBLE_STACK = 4;
 const EXTS = ["jpeg", "jpg", "png", "webp", "svg"];
 
-// Зсуви для кожного шару стопки — стільки, скільки фото в папці
-function buildDepths(count) {
-  if (count <= 0) return [];
-  const spread = count <= 4 ? 1 : 4 / count;
-  const depths = [{ x: 0, y: 0, rot: -2, scale: 1 }];
-
-  for (let i = 1; i < count; i++) {
-    const side = i % 2 === 1 ? 1 : -1;
-    depths.push({
-      x: side * (14 + (i - 1) * 3) * spread,
-      y: i * 8 * spread,
-      rot: side * (4 + (i - 1) * 1.5) * spread,
-      scale: Math.max(0.8, 1 - i * 0.012),
-    });
-  }
-  return depths;
-}
+// Фіксовані зсуви для 4 видимих шарів стопки
+const STACK_DEPTHS = [
+  { x: 0, y: 0, rot: -2, scale: 1 },
+  { x: 18, y: 14, rot: 4.5, scale: 0.965 },
+  { x: -16, y: 26, rot: -6.5, scale: 0.93 },
+  { x: 12, y: 34, rot: 4, scale: 0.91 },
+];
 
 let initialized = false;
 
@@ -43,7 +33,7 @@ async function findPhoto(i) {
 
 async function detectPhotos() {
   const urls = [];
-  for (let i = 1; i <= MAX_PHOTOS; i++) {
+  for (let i = 1; ; i++) {
     // eslint-disable-next-line no-await-in-loop
     const url = await findPhoto(i);
     if (!url) break;
@@ -95,19 +85,26 @@ function buildDeck(urls) {
     return fig;
   });
 
-  const depths = buildDepths(cards.length);
+  const visibleCount = Math.min(VISIBLE_STACK, cards.length);
   let order = cards.slice();
 
-  // Місце під виступаючі кути нижніх карток
-  deck.style.paddingBottom = `${Math.max(0, (cards.length - 1) * 5)}px`;
+  deck.style.paddingBottom = `${Math.max(0, (visibleCount - 1) * 5)}px`;
 
   function render() {
     order.forEach((card, depth) => {
-      const d = depths[Math.min(depth, depths.length - 1)];
-      card.style.transform = `translate(${d.x}px, ${d.y}px) rotate(${d.rot}deg) scale(${d.scale})`;
-      card.style.zIndex = String(order.length - depth);
-      card.style.opacity = "1";
-      card.classList.toggle("is-top", depth === 0);
+      if (depth < visibleCount) {
+        const d = STACK_DEPTHS[depth];
+        card.style.transform = `translate(${d.x}px, ${d.y}px) rotate(${d.rot}deg) scale(${d.scale})`;
+        card.style.zIndex = String(visibleCount - depth);
+        card.style.opacity = "1";
+        card.style.visibility = "visible";
+        card.classList.toggle("is-top", depth === 0);
+      } else {
+        card.style.opacity = "0";
+        card.style.visibility = "hidden";
+        card.style.zIndex = "0";
+        card.classList.remove("is-top");
+      }
     });
   }
 
