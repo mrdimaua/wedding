@@ -383,6 +383,26 @@ body {
   transform-origin: 0px 0px;
 }
 
+/* Легке гойдання — CSS-фолбек, коли GSAP неактивний (напр. не завантажився на мобільному) */
+@media (prefers-reduced-motion: no-preference) {
+  #garland-overlay:not(.is-animated) .bulb-item {
+    animation: bulb-sway 5s ease-in-out infinite alternate;
+  }
+
+  #garland-overlay:not(.is-animated) .layer-front .bulb-item {
+    animation-duration: 6.2s;
+  }
+}
+
+@keyframes bulb-sway {
+  0% {
+    transform: rotate(-7deg);
+  }
+  100% {
+    transform: rotate(7deg);
+  }
+}
+
 @media (max-width: 768px) {
   #garland-overlay {
     top: -80px;
@@ -411,8 +431,11 @@ body {
   z-index: 6;
   margin: 0 auto;
   padding-top: clamp(150px, 24vw, 240px);
-  width: max-content;
-  max-width: 94vw;
+  max-width: 96vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.2rem, 1.6vw, 0.9rem);
   font-family: var(--font-serif);
   font-weight: 600;
   font-size: clamp(2.2rem, 6.5vw, 3.6rem);
@@ -421,14 +444,36 @@ body {
   pointer-events: none;
 }
 
-.couple-names .ampersand {
+.couple-names .names-text {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+/* Обручки замість сердечка */
+.couple-names .rings {
   display: inline-block;
-  margin: 0 0.32em;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 0.82em;
-  color: #c45c6a;
-  transform: translateY(-0.04em);
+  width: 1.25em;
+  margin: 0 0.2em;
+  flex: 0 0 auto;
+}
+
+.couple-names .rings svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* Крила янгола з боків імені — емодзі 🪽 */
+.couple-names .wing {
+  flex: 0 0 auto;
+  font-size: 0.9em;
+  line-height: 1;
+}
+
+.couple-names .wing--left {
+  transform: scaleX(-1);
 }
 
 /* Photo deck (stacked cards) */

@@ -64,7 +64,7 @@
           style="position: absolute; width: 0; height: 0; pointer-events: none"
         >
           <defs>
-            <!-- Дешевий статичний "ореол" замість SVG-фільтра blur (продуктивно) -->
+            <!-- ===== ВАРІАНТ 1 (неактивний): теплі лампочки =====
             <radialGradient id="bulb-halo-grad" cx="50%" cy="50%" r="50%">
               <stop offset="0%" stop-color="#ffd27a" stop-opacity="0.85" />
               <stop offset="42%" stop-color="#ffb84d" stop-opacity="0.38" />
@@ -89,6 +89,37 @@
                 opacity="0.8"
               />
             </g>
+            ===== кінець варіанту з лампочками ===== -->
+
+            <!-- ===== ВАРІАНТ 2 (активний): матові фетрові сердечка, нитка проходить крізь них ===== -->
+            <linearGradient id="bulb-glass-grad" x1="0.18" y1="0" x2="0.72" y2="1">
+              <stop offset="0%" stop-color="#c12e38" />
+              <stop offset="55%" stop-color="#a21f29" />
+              <stop offset="100%" stop-color="#82161f" />
+            </linearGradient>
+            <radialGradient id="heart-shade" cx="40%" cy="32%" r="75%">
+              <stop offset="0%" stop-color="#ff7a82" stop-opacity="0.28" />
+              <stop offset="58%" stop-color="#000000" stop-opacity="0" />
+              <stop offset="100%" stop-color="#590d14" stop-opacity="0.5" />
+            </radialGradient>
+            <g id="bulb-template">
+              <path
+                transform="translate(2.5,4)"
+                fill="#360a0e"
+                opacity="0.16"
+                d="M0,-7 C -5,-18 -17,-22 -25,-15 C -33,-8 -30,4 -22,12 C -15,18 -6,22 0,27 C 6,22 15,18 22,12 C 30,4 33,-8 25,-15 C 17,-22 5,-18 0,-7 Z"
+              />
+              <path
+                class="heart-fill"
+                fill="url(#bulb-glass-grad)"
+                d="M0,-7 C -5,-18 -17,-22 -25,-15 C -33,-8 -30,4 -22,12 C -15,18 -6,22 0,27 C 6,22 15,18 22,12 C 30,4 33,-8 25,-15 C 17,-22 5,-18 0,-7 Z"
+              />
+              <path
+                class="heart-shade"
+                fill="url(#heart-shade)"
+                d="M0,-7 C -5,-18 -17,-22 -25,-15 C -33,-8 -30,4 -22,12 C -15,18 -6,22 0,27 C 6,22 15,18 22,12 C 30,4 33,-8 25,-15 C 17,-22 5,-18 0,-7 Z"
+              />
+            </g>
           </defs>
         </svg>
 
@@ -97,7 +128,7 @@
           <div class="garland-layer layer-back">
             <svg class="garland-svg" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg">
               <g class="wire-group">
-                <path class="wire wire-back" d="M -50 20 C 300 250, 900 150, 1250 80" fill="none" stroke="#2c241b" stroke-width="1" />
+                <path class="wire wire-back" d="M -50 20 C 300 250, 900 150, 1250 80" fill="none" stroke="#a32a32" stroke-width="2" />
                 <g transform="translate(62, 79.5)"><g class="bulb-item" data-delay="0.1"><use href="#bulb-template" /></g></g>
                 <g transform="translate(251.6, 136.2)"><g class="bulb-item" data-delay="0.5"><use href="#bulb-template" /></g></g>
                 <g transform="translate(458, 160.6)"><g class="bulb-item" data-delay="1.2"><use href="#bulb-template" /></g></g>
@@ -111,7 +142,7 @@
           <div class="garland-layer layer-front">
             <svg class="garland-svg" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg">
               <g class="wire-group">
-                <path class="wire wire-front" d="M -50 -20 C 400 370, 800 270, 1250 -50" fill="none" stroke="#2c241b" stroke-width="2" />
+                <path class="wire wire-front" d="M -50 -20 C 400 370, 800 270, 1250 -50" fill="none" stroke="#c0303a" stroke-width="3" />
                 <g transform="translate(83.6, 83)"><g class="bulb-item" data-delay="0.4"><use href="#bulb-template" /></g></g>
                 <g transform="translate(214.8, 157)"><g class="bulb-item" data-delay="1.1"><use href="#bulb-template" /></g></g>
                 <g transform="translate(344.2, 206)"><g class="bulb-item" data-delay="2.7"><use href="#bulb-template" /></g></g>
@@ -127,9 +158,28 @@
         </div>
 
         <h1 class="couple-names">
-          <span data-i18n="screen2.groom_name"></span>
-          <span class="ampersand" data-i18n="screen2.and"></span>
-          <span data-i18n="screen2.bride_name"></span>
+          <span class="wing wing--left" aria-hidden="true">🪽</span>
+
+          <span class="names-text">
+            <span data-i18n="screen2.groom_name"></span>
+            <span class="rings" aria-hidden="true">
+              <svg viewBox="0 0 72 48" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="ring-gold" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#f7dd92" />
+                    <stop offset="48%" stop-color="#d9a93a" />
+                    <stop offset="100%" stop-color="#a9760a" />
+                  </linearGradient>
+                </defs>
+                <circle cx="27" cy="27" r="15" fill="none" stroke="url(#ring-gold)" stroke-width="4.5" />
+                <circle cx="46" cy="27" r="15" fill="none" stroke="url(#ring-gold)" stroke-width="4.5" />
+                <path d="M46 2 l2.6 4 -2.6 4 -2.6-4 z" fill="#fff7df" stroke="#e6c46a" stroke-width="0.8" />
+              </svg>
+            </span>
+            <span data-i18n="screen2.bride_name"></span>
+          </span>
+
+          <span class="wing wing--right" aria-hidden="true">🪽</span>
         </h1>
 
         <div class="photo-deck-wrap">

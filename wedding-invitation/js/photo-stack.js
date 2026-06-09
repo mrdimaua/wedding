@@ -1,15 +1,25 @@
 const BASE = "images/dimalena/";
 const PREFIX = "photo";
 const MAX_PHOTOS = 10;
-const MAX_VISIBLE = 3;
 const EXTS = ["jpeg", "jpg", "png", "webp", "svg"];
 
-// Зсуви/нахили для кожного "шару" стопки (видимо максимум 3)
-const DEPTHS = [
-  { x: 0, y: 0, rot: -2, scale: 1 },
-  { x: 18, y: 14, rot: 4.5, scale: 0.965 },
-  { x: -16, y: 26, rot: -6.5, scale: 0.93 },
-];
+// Зсуви для кожного шару стопки — стільки, скільки фото в папці
+function buildDepths(count) {
+  if (count <= 0) return [];
+  const spread = count <= 4 ? 1 : 4 / count;
+  const depths = [{ x: 0, y: 0, rot: -2, scale: 1 }];
+
+  for (let i = 1; i < count; i++) {
+    const side = i % 2 === 1 ? 1 : -1;
+    depths.push({
+      x: side * (14 + (i - 1) * 3) * spread,
+      y: i * 8 * spread,
+      rot: side * (4 + (i - 1) * 1.5) * spread,
+      scale: Math.max(0.8, 1 - i * 0.012),
+    });
+  }
+  return depths;
+}
 
 let initialized = false;
 
@@ -85,15 +95,18 @@ function buildDeck(urls) {
     return fig;
   });
 
-  const visible = Math.min(MAX_VISIBLE, cards.length);
+  const depths = buildDepths(cards.length);
   let order = cards.slice();
+
+  // Місце під виступаючі кути нижніх карток
+  deck.style.paddingBottom = `${Math.max(0, (cards.length - 1) * 5)}px`;
 
   function render() {
     order.forEach((card, depth) => {
-      const d = DEPTHS[Math.min(depth, DEPTHS.length - 1)];
+      const d = depths[Math.min(depth, depths.length - 1)];
       card.style.transform = `translate(${d.x}px, ${d.y}px) rotate(${d.rot}deg) scale(${d.scale})`;
       card.style.zIndex = String(order.length - depth);
-      card.style.opacity = depth < visible ? "1" : "0";
+      card.style.opacity = "1";
       card.classList.toggle("is-top", depth === 0);
     });
   }

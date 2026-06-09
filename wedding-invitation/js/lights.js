@@ -26,6 +26,9 @@ export function initLights() {
     return;
   }
 
+  // GSAP керує гойданням → вимикаємо CSS-фолбек
+  overlay.classList.add("is-animated");
+
   const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
 
   // 1. Похитування кожної лампочки

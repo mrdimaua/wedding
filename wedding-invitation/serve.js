@@ -36,7 +36,13 @@ http
         return;
       }
       const ext = path.extname(filePath);
-      res.writeHead(200, { "Content-Type": types[ext] || "application/octet-stream" });
+      res.writeHead(200, {
+        "Content-Type": types[ext] || "application/octet-stream",
+        // Дев-сервер: ніколи не кешуємо, щоб правки завжди було видно одразу
+        "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+        Pragma: "no-cache",
+        Expires: "0",
+      });
       res.end(data);
     });
   })
