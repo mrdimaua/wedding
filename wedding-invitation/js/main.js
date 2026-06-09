@@ -11,6 +11,7 @@ import { initProgramTimeline, rebuildProgram } from "./program-timeline.js";
 import { initCountdown } from "./countdown.js";
 import { initPalette, rebuildPalette } from "./palette.js";
 import { initRestaurant } from "./restaurant.js";
+import { initPhotoStack } from "./photo-stack.js";
 
 let mainInitialized = false;
 
@@ -43,6 +44,7 @@ function initMainContent() {
   mainInitialized = true;
   try {
     initLights();
+    initPhotoStack();
     initProgramTimeline();
     initCountdown();
     initPalette();

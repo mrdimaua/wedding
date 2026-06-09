@@ -132,13 +132,19 @@
           <span data-i18n="screen2.bride_name"></span>
         </h1>
 
-        <div class="polaroids">
-          <figure class="polaroid polaroid--left">
-            <img data-i18n-src="images.photo1" src="" alt="" />
-          </figure>
-          <figure class="polaroid polaroid--right">
-            <img data-i18n-src="images.photo2" src="" alt="" />
-          </figure>
+        <div class="photo-deck-wrap">
+          <div class="photo-deck-loader" id="photo-deck-loader" hidden>
+            <span class="loader-spinner" aria-hidden="true"></span>
+          </div>
+          <div
+            class="photo-deck"
+            id="photo-deck"
+            role="button"
+            tabindex="0"
+            aria-label="Photos"
+            hidden
+          ></div>
+          <p class="photo-deck-hint" id="photo-deck-hint" data-i18n="screen2.photos_hint" hidden></p>
         </div>
 
         <p class="wedding-date" data-i18n="screen2.wedding_date"></p>

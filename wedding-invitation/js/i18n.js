@@ -14,6 +14,7 @@ const FALLBACK_LOCALE = {
     bride_name: "Елена",
     and: "♥",
     wedding_date: "8 серпня 2026",
+    photos_hint: "Натисніть на фото, щоб погортати",
   },
   invitation: {
     title: "Дорогі друзі та рідні!",

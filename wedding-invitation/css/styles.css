@@ -431,59 +431,106 @@ body {
   transform: translateY(-0.04em);
 }
 
-/* Polaroids */
-.polaroids {
+/* Photo deck (stacked cards) */
+.photo-deck-wrap {
   position: relative;
   z-index: 3;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  gap: clamp(0.75rem, 4vw, 2.5rem);
   margin-bottom: 2rem;
   padding-top: 2.5rem;
-  min-height: 420px;
 }
 
-.polaroid {
-  margin: 0;
-  padding: 0.85rem 0.85rem 3.25rem;
-  background: #fff;
+.photo-deck-loader {
+  width: min(300px, 70vw);
+  aspect-ratio: 3 / 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5efe6, #ece4d7);
   box-shadow:
     0 6px 28px rgba(61, 52, 41, 0.14),
     0 2px 6px rgba(0, 0, 0, 0.06);
-  width: min(300px, 46vw);
-  transition: transform 0.35s ease;
 }
 
-.polaroid img {
+.photo-deck-loader[hidden] {
+  display: none;
+}
+
+.photo-deck {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(300px, 70vw);
+  margin: 0 auto;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.photo-deck[hidden] {
+  display: none;
+}
+
+.photo-deck.is-interactive {
+  cursor: pointer;
+}
+
+.photo-deck:focus-visible {
+  outline: 2px solid #c8901f;
+  outline-offset: 8px;
+  border-radius: 4px;
+}
+
+.photo-card {
+  grid-area: 1 / 1;
+  margin: 0;
+  padding: 0.85rem 0.85rem 3.25rem;
+  width: 100%;
+  background: #fff;
+  box-shadow:
+    0 8px 30px rgba(61, 52, 41, 0.16),
+    0 2px 6px rgba(0, 0, 0, 0.07);
+  transition:
+    transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 0.4s ease;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.photo-card img {
   display: block;
   width: 100%;
   aspect-ratio: 3 / 4;
   object-fit: cover;
   background: #eee;
+  pointer-events: none;
+  user-select: none;
 }
 
-.polaroid--left {
-  transform: rotate(5deg) translateY(12px);
+.photo-deck-hint {
+  margin: 1.5rem 0 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  letter-spacing: 0.01em;
 }
 
-.polaroid--right {
-  transform: rotate(-5deg) translateY(-10px);
+.photo-deck-hint[hidden] {
+  display: none;
 }
 
-.polaroid:hover {
-  transform: rotate(0deg) scale(1.03);
-  z-index: 8;
+@media (prefers-reduced-motion: reduce) {
+  .photo-card {
+    transition: opacity 0.3s ease;
+  }
 }
 
 @media (max-width: 640px) {
-  .polaroids {
-    min-height: 340px;
-    padding-top: 1rem;
+  .photo-deck,
+  .photo-deck-loader {
+    width: min(260px, 72vw);
   }
 
-  .polaroid {
-    width: min(240px, 44vw);
+  .photo-card {
     padding: 0.7rem 0.7rem 2.75rem;
   }
 }
