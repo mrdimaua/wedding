@@ -11,6 +11,7 @@
   --font-sans: "Montserrat", system-ui, sans-serif;
   --max-content: 720px;
   --envelope-width: min(320px, 78vw);
+  color-scheme: light only;
 }
 
 *,
@@ -21,21 +22,73 @@
 
 html {
   scroll-behavior: smooth;
-  /* Завжди світла тема — ігноруємо темний режим ОС/браузера */
-  color-scheme: light;
   color-scheme: light only;
-  background-color: var(--bg-cream);
+  background-color: #faf8f4;
+  forced-color-adjust: none;
 }
 
 body {
   margin: 0;
   font-family: var(--font-sans);
   font-weight: 300;
-  color: var(--text-primary);
-  background-color: var(--bg-cream);
-  background: linear-gradient(165deg, #e8eef5 0%, #f5f0e8 35%, var(--bg-cream) 60%);
+  color: #3d3429;
+  background-color: #faf8f4;
+  background-image: linear-gradient(165deg, #e8eef5 0%, #f5f0e8 35%, #faf8f4 60%);
   min-height: 100dvh;
   overflow-x: hidden;
+  forced-color-adjust: none;
+}
+
+/* Примусово світла тема навіть якщо ОС/браузер у dark mode */
+@media (prefers-color-scheme: dark) {
+  :root,
+  html {
+    color-scheme: light only;
+    background-color: #faf8f4;
+  }
+
+  body,
+  .screen-envelope,
+  .screen-main,
+  .hero,
+  .paper-widget,
+  .paper-sheet,
+  .program-section,
+  .countdown-section,
+  .palette-section,
+  .restaurant-section,
+  .location-section,
+  .site-footer {
+    background-color: #faf8f4;
+    color: #3d3429;
+  }
+
+  body {
+    background-image: linear-gradient(165deg, #e8eef5 0%, #f5f0e8 35%, #faf8f4 60%);
+  }
+
+  .paper-sheet,
+  .photo-card,
+  .copy-btn,
+  .carousel-nav,
+  .lang-btn {
+    background-color: #fffef9;
+    color: #3d3429;
+  }
+
+  .section-title,
+  .couple-names,
+  .paper-title,
+  .wedding-date {
+    color: #3d3429;
+  }
+
+  .palette-description,
+  .photo-deck-hint,
+  .envelope-hint-bottom,
+  .footer-follow {
+    color: #7a6f63;
+  }
 }
 
 .screen-main.hidden {
@@ -878,6 +931,9 @@ body {
   justify-content: center;
   align-items: center;
   gap: clamp(0.85rem, 3.5vw, 1.75rem);
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
 
 .palette-swatch {
@@ -893,6 +949,11 @@ body {
   cursor: pointer;
   transition: transform 0.3s cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 0.3s ease;
   will-change: transform;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .palette-swatch:hover {

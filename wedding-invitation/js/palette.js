@@ -12,7 +12,6 @@ function buildSwatches() {
     li.className = "palette-swatch";
     li.style.setProperty("--swatch", color.hex);
     if (color.name) {
-      li.title = color.name;
       li.setAttribute("aria-label", color.name);
     }
     list.appendChild(li);
