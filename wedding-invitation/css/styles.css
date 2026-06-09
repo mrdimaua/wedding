@@ -21,6 +21,10 @@
 
 html {
   scroll-behavior: smooth;
+  /* Завжди світла тема — ігноруємо темний режим ОС/браузера */
+  color-scheme: light;
+  color-scheme: light only;
+  background-color: var(--bg-cream);
 }
 
 body {
@@ -28,6 +32,7 @@ body {
   font-family: var(--font-sans);
   font-weight: 300;
   color: var(--text-primary);
+  background-color: var(--bg-cream);
   background: linear-gradient(165deg, #e8eef5 0%, #f5f0e8 35%, var(--bg-cream) 60%);
   min-height: 100dvh;
   overflow-x: hidden;
