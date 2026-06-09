@@ -523,15 +523,15 @@ body {
   overflow: visible;
 }
 
-/* Крила янгола з боків імені — емодзі 🪽 */
+/* Крила янгола з боків імені */
 .couple-names .wing {
   flex: 0 0 auto;
-  font-size: 0.9em;
-  line-height: 1;
-}
-
-.couple-names .wing--left {
-  transform: scaleX(-1);
+  display: block;
+  width: clamp(47px, 11vw, 70px);
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 /* Photo deck (stacked cards) */
