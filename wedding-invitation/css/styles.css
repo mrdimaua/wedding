@@ -40,6 +40,15 @@ body {
   forced-color-adjust: none;
 }
 
+button,
+[role="button"] {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
 /* Примусово світла тема навіть якщо ОС/браузер у dark mode */
 @media (prefers-color-scheme: dark) {
   :root,
