@@ -75,7 +75,7 @@ const FALLBACK_LOCALE = {
   restaurant: {
     title: "Ресторан",
     name: "Castel Transilvania",
-    coordinates: "47.641581, 23.590641",
+    coordinates: "47.637445, 23.595838",
     copy: "Копіювати",
     copied: "Скопійовано",
   },

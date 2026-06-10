@@ -1,3 +1,5 @@
+import { refreshAmbientFloat } from "./ambient-float.js";
+
 const FLIP_DURATION_MS = 950;
 const FLIP_BUFFER_MS = 80;
 const ZOOM_DURATION_MS = 1100;
@@ -68,6 +70,7 @@ export function ensureWelcomeScreen() {
 export function resetToEnvelopeScreen() {
   ensureWelcomeScreen();
   window.scrollTo({ top: 0, behavior: "auto" });
+  refreshAmbientFloat();
 }
 
 export function initEnvelope(onOpenComplete) {
@@ -114,10 +117,12 @@ export function initEnvelope(onOpenComplete) {
       document.body.style.overflow = "";
       showBackToEnvelope(true);
       onOpenComplete?.();
+      refreshAmbientFloat();
 
       setTimeout(() => {
         screenEnvelope.style.display = "none";
         resetEnvelopeAnimation();
+        refreshAmbientFloat();
       }, 700);
     }, zoomDone);
   };

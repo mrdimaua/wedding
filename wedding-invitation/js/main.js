@@ -6,6 +6,7 @@ import {
   SUPPORTED,
 } from "./i18n.js";
 import { initEnvelope, ensureWelcomeScreen } from "./envelope.js";
+import { initAmbientFloat } from "./ambient-float.js";
 import { initLights } from "./lights.js";
 import { initProgramTimeline, rebuildProgram } from "./program-timeline.js";
 import { initCountdown } from "./countdown.js";
@@ -76,6 +77,7 @@ async function bootstrap() {
   }
 
   bindLanguageSwitcher();
+  initAmbientFloat();
   await initEnvelope(() => {
     initMainContent();
     window.dispatchEvent(new Event("resize"));

@@ -99,85 +99,97 @@ function initScrollReveal() {
   });
 }
 
+function getSmoothFactor() {
+  return window.matchMedia("(max-width: 640px)").matches ? 0.085 : 0.13;
+}
+
+function getScrollProgress(timeline) {
+  const rect = timeline.getBoundingClientRect();
+  const range = rect.height;
+  if (range <= 0) return 0;
+
+  const vv = window.visualViewport;
+  const viewportCenter = vv ? vv.offsetTop + vv.height * 0.5 : window.innerHeight * 0.5;
+
+  return Math.max(0, Math.min(1, (viewportCenter - rect.top) / range));
+}
+
 export function initProgramTimeline() {
   buildProgramList();
   const heart = document.getElementById("program-heart");
   const timeline = document.getElementById("program-timeline");
   let pathData = null;
   let pathLength = 0;
-  let rafId = null;
-  let lastLength = -1;
+  let currentLength = 0;
+  let targetLength = 0;
+  let glideRaf = null;
   let resizeTimer = null;
 
-  const updateHeart = () => {
-    if (!pathData || !heart || !timeline) return;
+  const applyHeartAtLength = (length) => {
+    if (!pathData || !heart) return;
 
     const { pathEl, centerX } = pathData;
-    pathLength = pathEl.getTotalLength();
-    if (!pathLength) return;
-
-    const rect = timeline.getBoundingClientRect();
-    const range = rect.height;
-    if (range <= 0) return;
-
-    // Лише viewport-координати — стабільніше на iOS zoom / overscroll
-    const vv = window.visualViewport;
-    const viewportCenter = vv ? vv.offsetTop + vv.height * 0.5 : window.innerHeight * 0.5;
-
-    let progress = (viewportCenter - rect.top) / range;
-    progress = Math.max(0, Math.min(1, progress));
-
-    // На краях фіксуємо — менше смикання при дальшому скролі
-    if (progress <= 0.002) progress = 0;
-    if (progress >= 0.998) progress = 1;
-
-    const length = progress * pathLength;
-
-    // На краях не оновлюємо DOM без потреби
-    if (
-      (progress === 0 || progress === 1) &&
-      lastLength >= 0 &&
-      Math.abs(length - lastLength) < 0.5
-    ) {
-      return;
-    }
-    lastLength = length;
-
     const point = pathEl.getPointAtLength(length);
     heart.style.left = `calc(50% + ${point.x - centerX}px)`;
     heart.style.top = `${point.y}px`;
+    heart.style.transform = "translate(-50%, -50%)";
   };
 
-  const onScroll = () => {
-    if (rafId) return;
-    rafId = requestAnimationFrame(() => {
-      updateHeart();
-      rafId = null;
-    });
+  const glide = () => {
+    const delta = targetLength - currentLength;
+
+    if (Math.abs(delta) < 0.35) {
+      currentLength = targetLength;
+    } else {
+      currentLength += delta * getSmoothFactor();
+    }
+
+    applyHeartAtLength(currentLength);
+
+    if (Math.abs(targetLength - currentLength) >= 0.35) {
+      glideRaf = requestAnimationFrame(glide);
+    } else {
+      glideRaf = null;
+    }
+  };
+
+  const syncTarget = () => {
+    if (!pathData || !heart || !timeline) return;
+
+    pathLength = pathData.pathEl.getTotalLength();
+    if (!pathLength) return;
+
+    targetLength = getScrollProgress(timeline) * pathLength;
+
+    if (!glideRaf) {
+      glideRaf = requestAnimationFrame(glide);
+    }
   };
 
   const relayout = () => {
-    lastLength = -1;
     pathData = layoutPath();
-    if (pathData?.pathEl) {
-      pathLength = pathData.pathEl.getTotalLength();
-      updateHeart();
-    }
+    if (!pathData?.pathEl || !timeline) return;
+
+    pathLength = pathData.pathEl.getTotalLength();
+    const length = getScrollProgress(timeline) * pathLength;
+    currentLength = length;
+    targetLength = length;
+    applyHeartAtLength(currentLength);
   };
 
   relayout();
   initScrollReveal();
 
-  window.addEventListener("scroll", onScroll, { passive: true });
-  window.visualViewport?.addEventListener("scroll", onScroll, { passive: true });
-  window.visualViewport?.addEventListener("resize", onScroll, { passive: true });
+  window.addEventListener("scroll", syncTarget, { passive: true });
+  window.visualViewport?.addEventListener("scroll", syncTarget, { passive: true });
+  window.visualViewport?.addEventListener("resize", syncTarget, { passive: true });
 
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(relayout, 150);
   });
 
-  updateHeart();
+  syncTarget();
 }
 
 export function rebuildProgram() {
