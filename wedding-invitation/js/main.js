@@ -78,8 +78,8 @@ async function bootstrap() {
 
   bindLanguageSwitcher();
   initAmbientFloat();
+  initMainContent();
   await initEnvelope(() => {
-    initMainContent();
     window.dispatchEvent(new Event("resize"));
   });
 }
@@ -95,7 +95,8 @@ bootstrap().catch(async (err) => {
   showBootHint();
   ensureWelcomeScreen();
   try {
-    await initEnvelope(() => initMainContent());
+    initMainContent();
+    await initEnvelope();
   } catch (e) {
     console.error(e);
   }

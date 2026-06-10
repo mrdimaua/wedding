@@ -14,9 +14,6 @@ const KINDS = [
   "star",
   "sparkle",
   "sparkle",
-  "confetti",
-  "confetti",
-  "confetti",
   "ring",
   "petal",
   "petal",
@@ -85,29 +82,22 @@ function spawnParticle() {
 
   const host = pick(hosts);
   const kind = pick(KINDS);
-  const isConfetti = kind === "confetti";
   const isRibbon = kind === "ribbon";
   const sizeBoost = MOBILE ? 1.15 : 1;
-  const size = (isConfetti ? rand(14, 22) : isRibbon ? rand(14, 20) : rand(12, 20)) * sizeBoost;
-  const duration = isConfetti ? rand(2.4, 4.2) : rand(2.8, 5);
+  const size = (isRibbon ? rand(14, 20) : rand(12, 20)) * sizeBoost;
+  const duration = rand(2.8, 5);
   const peak = rand(0.42, 0.72);
   const left = rand(3, 97);
   const top = rand(5, 92);
-  const driftX = isConfetti ? rand(-50, 50) : rand(-28, 28);
+  const driftX = rand(-28, 28);
   const driftY = rand(-48, -14);
-  const spin = isConfetti ? rand(-140, 140) : rand(-20, 20);
+  const spin = rand(-20, 20);
 
   const el = document.createElement("span");
   el.className = `ambient-particle ambient-particle--${kind}`;
-
-  if (isConfetti) {
-    el.style.width = `${rand(4, 7) * sizeBoost}px`;
-    el.style.height = `${rand(10, 18) * sizeBoost}px`;
-  } else {
-    el.innerHTML = ICONS[kind];
-    el.style.width = `${size}px`;
-    el.style.height = `${size}px`;
-  }
+  el.innerHTML = ICONS[kind];
+  el.style.width = `${size}px`;
+  el.style.height = `${size}px`;
 
   el.style.left = `${left}%`;
   el.style.top = `${top}%`;

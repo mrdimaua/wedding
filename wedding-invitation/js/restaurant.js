@@ -73,10 +73,12 @@ async function findPhotoForIndex(i) {
 }
 
 async function detectPhotos() {
+  const found = await Promise.all(
+    Array.from({ length: MAX_PHOTOS }, (_, index) => findPhotoForIndex(index + 1))
+  );
+
   const urls = [];
-  for (let i = 1; i <= MAX_PHOTOS; i++) {
-    // eslint-disable-next-line no-await-in-loop
-    const url = await findPhotoForIndex(i);
+  for (const url of found) {
     if (!url) break;
     urls.push(url);
   }

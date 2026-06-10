@@ -1,5 +1,6 @@
 const BASE = "images/dimalena/";
 const PREFIX = "photo";
+const MAX_PHOTOS = 24;
 const VISIBLE_STACK = 4;
 const EXTS = ["jpeg", "jpg", "png", "webp", "svg"];
 
@@ -32,23 +33,35 @@ async function findPhoto(i) {
 }
 
 async function detectPhotos() {
+  const found = await Promise.all(
+    Array.from({ length: MAX_PHOTOS }, (_, index) => findPhoto(index + 1))
+  );
+
   const urls = [];
-  for (let i = 1; ; i++) {
-    // eslint-disable-next-line no-await-in-loop
-    const url = await findPhoto(i);
+  for (const url of found) {
     if (!url) break;
     urls.push(url);
   }
   return urls;
 }
 
-function preloadFirst(urls) {
-  if (!urls.length) return Promise.resolve();
+function preloadOne(url) {
   return new Promise((resolve) => {
     const img = new Image();
     img.onload = resolve;
     img.onerror = resolve;
-    img.src = urls[0];
+    img.src = url;
+  });
+}
+
+async function preloadPhotos(urls) {
+  if (!urls.length) return;
+
+  const priority = urls.slice(0, VISIBLE_STACK);
+  await Promise.all(priority.map(preloadOne));
+
+  urls.slice(VISIBLE_STACK).forEach((url) => {
+    preloadOne(url);
   });
 }
 
@@ -79,7 +92,7 @@ function buildDeck(urls) {
     img.src = url;
     img.alt = `Дмитро & Елена ${idx + 1}`;
     img.draggable = false;
-    img.loading = idx === 0 ? "eager" : "lazy";
+    img.loading = idx < VISIBLE_STACK ? "eager" : "lazy";
     fig.appendChild(img);
     deck.appendChild(fig);
     return fig;
@@ -143,7 +156,7 @@ export function initPhotoStack() {
   showState("loader");
   detectPhotos()
     .then(async (urls) => {
-      await preloadFirst(urls);
+      await preloadPhotos(urls);
       buildDeck(urls);
     })
     .catch((err) => {
