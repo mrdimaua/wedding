@@ -8,8 +8,8 @@
     "ro": "RO"
   },
   "screen1": {
-    "invitation_arrived": "Ați primit o invitație",
-    "tap_envelope": "Atingeți plicul"
+    "invitation_arrived": "Ați primit o invitație!",
+    "tap_envelope": "Atingeți plicul!"
   },
   "screen2": {
     "groom_name": "Dmytro",
@@ -65,12 +65,12 @@
     "colors": [
       { "name": "Alb", "hex": "#F6F1E9" },
       { "name": "Roz", "hex": "#F0B8C4" },
-      { "name": "Roz prăfuit", "hex": "#CE7A8E" },
       { "name": "Roșu", "hex": "#C1352F" },
       { "name": "Bordo", "hex": "#7A1F38" },
       { "name": "Teracotă", "hex": "#C76B3F" },
       { "name": "Auriu", "hex": "#E3B23C" },
-      { "name": "Salvie", "hex": "#93A07A" }
+      { "name": "Salvie", "hex": "#93A07A" },
+      { "name": "Albastru prăfuit", "hex": "#7D91A8" }
     ]
   },
   "restaurant": {
@@ -86,7 +86,7 @@
   },
   "footer": {
     "initials": "D & E",
-    "follow": "urmați site-ul, știrile și informațiile vor fi actualizate",
+    "body": "Dragi oaspeți, vom completa treptat acest site cu detalii utile până în ziua festivității. Vă rugăm să reveniți aproximativ cu două săptămâni înainte de nuntă — până atunci pot apărea adrese actualizate, clarificări în program, evenimente suplimentare și alte noutăți importante.",
     "see_you": "Pe curând",
     "back_to_envelope": "Înapoi la invitație"
   },

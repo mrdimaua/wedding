@@ -8,8 +8,8 @@
     "ro": "RO"
   },
   "screen1": {
-    "invitation_arrived": "You have received an invitation",
-    "tap_envelope": "Tap the envelope"
+    "invitation_arrived": "You have received an invitation!",
+    "tap_envelope": "Tap the envelope!"
   },
   "screen2": {
     "groom_name": "Dmytro",
@@ -65,12 +65,12 @@
     "colors": [
       { "name": "White", "hex": "#F6F1E9" },
       { "name": "Blush pink", "hex": "#F0B8C4" },
-      { "name": "Dusty rose", "hex": "#CE7A8E" },
       { "name": "Red", "hex": "#C1352F" },
       { "name": "Burgundy", "hex": "#7A1F38" },
       { "name": "Terracotta", "hex": "#C76B3F" },
       { "name": "Gold", "hex": "#E3B23C" },
-      { "name": "Sage", "hex": "#93A07A" }
+      { "name": "Sage", "hex": "#93A07A" },
+      { "name": "Dusty blue", "hex": "#7D91A8" }
     ]
   },
   "restaurant": {
@@ -86,7 +86,7 @@
   },
   "footer": {
     "initials": "D & E",
-    "follow": "follow the website, news and information will be updated",
+    "body": "Dear guests, we will gradually fill this website with useful details before the celebration. Please visit again approximately two weeks before the wedding — by then, current addresses, program updates, additional events, and other important news may appear here.",
     "see_you": "See you soon",
     "back_to_envelope": "Back to the invitation"
   },

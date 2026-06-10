@@ -45,7 +45,7 @@
     <!-- Screen 1: Envelope -->
     <section id="screen-envelope" class="screen screen-envelope" aria-label="Welcome">
       <div class="ambient-float" data-ambient-host aria-hidden="true"></div>
-      <p class="envelope-hint-top" data-i18n="screen1.invitation_arrived">Вам надійшло запрошення</p>
+      <p class="envelope-hint-top" data-i18n="screen1.invitation_arrived">Вам надійшло запрошення!</p>
 
       <button
         type="button"
@@ -82,7 +82,7 @@
         </div>
       </button>
 
-      <p class="envelope-hint-bottom" data-i18n="screen1.tap_envelope">Натисніть на конверт</p>
+      <p class="envelope-hint-bottom" data-i18n="screen1.tap_envelope">Натисніть на конверт!</p>
     </section>
 
     <!-- Screen 2: Main invitation -->
@@ -235,7 +235,8 @@
       </header>
 
       <section class="paper-widget" aria-labelledby="invitation-title">
-        <div class="paper-sheet">
+        <div class="paper-sheet paper-sheet--taped">
+          <div class="paper-tape" aria-hidden="true"></div>
           <h2 id="invitation-title" class="paper-title" data-i18n="invitation.title"></h2>
           <p class="paper-body" data-i18n="invitation.body"></p>
         </div>
@@ -366,9 +367,25 @@
       </section>
 
       <footer class="site-footer">
-        <p class="footer-initials" data-i18n="footer.initials"></p>
-        <p class="footer-follow" data-i18n="footer.follow"></p>
-        <p class="footer-see-you" data-i18n="footer.see_you"></p>
+        <section class="paper-widget paper-widget--footer" aria-labelledby="footer-note-title">
+          <div class="paper-sheet paper-sheet--taped">
+            <div class="paper-tape" aria-hidden="true"></div>
+            <h2 id="footer-note-title" class="footer-initials" data-i18n="footer.initials"></h2>
+            <p class="paper-body paper-body--footer" data-i18n="footer.body"></p>
+            <p class="footer-see-you">
+              <span data-i18n="footer.see_you"></span>
+              <svg class="footer-see-you__heart" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </p>
+          </div>
+        </section>
 
         <button
           type="button"
