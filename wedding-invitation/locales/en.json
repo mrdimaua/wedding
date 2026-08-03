@@ -22,31 +22,41 @@
     "title": "Dear friends and family!",
     "body": "With great joy, we invite your family to share with us one of the most important and happiest days of our lives — our wedding day!\n\nWe would be delighted to have you by our side on this special occasion. We dream of celebrating it surrounded by family and close friends, sharing joy, warm emotions, sincere smiles, and creating memories that will stay with us for many years to come.\n\nThis day will be filled with love, happiness, laughter, and a heartfelt atmosphere, and we truly want you to be part of it. Your presence will be the most precious gift for us and will make this celebration even more special.\n\nWe look forward to seeing you and sharing this beautiful day together with you!"
   },
+  "chat": {
+    "title": "Our wedding chat",
+    "body": "We have created a shared chat on Telegram — that is where all the latest news about the celebration will appear. Join in to ask any question or to check the most up-to-date details.\n\nAnd during the celebration, do share your photos and videos there — that way we will gather all the warmest moments of the day in one place.",
+    "cta": "Join the chat"
+  },
   "program": {
     "title": "Program",
+    "navigate": "Open in navigation app",
     "items": [
       {
         "time": "12:00",
         "title": "Meeting of the groom and the bride",
-        "desc": "Gathering of guests, a touching meeting of the couple, getting to know each other and getting into the festive mood"
+        "desc": "A touching meeting of the couple and the traditional bride ransom. We get to know each other and get into the festive mood. Please note: parking is limited at this location.",
+        "address": "Strada George Coșbuc 1"
       },
       {
         "time": "14:00",
         "title": "Ceremony",
-        "desc": "Get your handkerchiefs ready for a touching moment"
+        "desc": "A solemn open-air ceremony on a beautiful lavender field. Get your handkerchiefs ready for a touching moment, and afterwards drinks, delicious food, music, a great mood and plenty of lovely spots for photos await us.",
+        "address": "Str. Lavandei 16, Groși"
       },
       {
-        "time": "16:00",
+        "time": "16:30",
         "title": "Arrival at the restaurant",
-        "desc": "We mingle in the welcome zone, take our seats and get ready for a delicious meal"
+        "desc": "We mingle in the welcome zone with champagne. A seating plan will be prepared for you — find your table, take your seats and get ready for a delicious meal.",
+        "address": "Castel Transilvania",
+        "map": "47.637445, 23.595838"
       },
       {
         "time": "17:00",
         "title": "Party start",
-        "desc": "Fun awaits us, a wonderful host, contests and a great mood"
+        "desc": "Fun awaits us, a wonderful host, contests and a great mood, as well as delicious food and unlimited drinks."
       },
       {
-        "time": "20:00",
+        "time": "22:00",
         "title": "Cake",
         "desc": "We hope and know that you will still have the energy for the festive cake and dancing that follows"
       }
@@ -80,13 +90,9 @@
     "copy": "Copy",
     "copied": "Copied"
   },
-  "location": {
-    "title": "Location",
-    "address": "Castel Transilvania"
-  },
   "footer": {
-    "initials": "D & E",
-    "body": "Dear guests, we will gradually fill this website with useful details before the celebration. Please visit again approximately two weeks before the wedding — by then, current addresses, program updates, additional events, and other important news may appear here.",
+    "title": "A note for guests with children",
+    "body": "At the ceremony venue we have fenced off parts of the grounds with green netting. Please make sure children do not go behind it or touch the netting itself.\n\nAt the restaurant, during the couple's first dance, cold smoke will flow across the floor. Please keep your little ones close so they do not run into the middle of the dance floor.\n\nThank you sincerely for your understanding. We love you!",
     "see_you": "See you soon",
     "back_to_envelope": "Back to the invitation"
   },

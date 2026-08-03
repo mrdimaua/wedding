@@ -1,4 +1,6 @@
 import { t, getLocale } from "./i18n.js";
+import { createCopyButton } from "./copy.js";
+import { createMapButton } from "./map-link.js";
 
 function buildProgramList() {
   const list = document.getElementById("program-list");
@@ -34,6 +36,33 @@ function buildProgramList() {
       desc.className = "program-item__desc";
       desc.textContent = item.desc;
       text.appendChild(desc);
+    }
+
+    if (item.address) {
+      const addressRow = document.createElement("div");
+      addressRow.className = "program-item__address copy-row";
+
+      const addressId = `program-item-address-${index}`;
+      const address = document.createElement("span");
+      address.className = "program-item__address-text";
+      address.id = addressId;
+      address.textContent = item.address;
+
+      const copyBtn = createCopyButton({
+        targetId: addressId,
+        ariaLabel: t("restaurant.copy"),
+      });
+
+      addressRow.append(address, copyBtn);
+
+      const mapBtn = createMapButton({
+        query: item.map ?? item.address,
+        label: item.address,
+        ariaLabel: t("program.navigate"),
+      });
+      if (mapBtn) addressRow.appendChild(mapBtn);
+
+      text.appendChild(addressRow);
     }
 
     li.append(time, spacer, text);
@@ -130,9 +159,10 @@ export function initProgramTimeline() {
 
     const { pathEl, centerX } = pathData;
     const point = pathEl.getPointAtLength(length);
-    heart.style.left = `calc(50% + ${point.x - centerX}px)`;
-    heart.style.top = `${point.y}px`;
-    heart.style.transform = "translate(-50%, -50%)";
+    // Composited transform only: left/top would force a layout pass every frame.
+    heart.style.transform = `translate(-50%, -50%) translate3d(${
+      point.x - centerX
+    }px, ${point.y}px, 0)`;
   };
 
   const glide = () => {

@@ -22,31 +22,41 @@
     "title": "Dragi prieteni și familie!",
     "body": "Cu mare bucurie vă invităm pe voi și familiile voastre să împărtășiți alături de noi una dintre cele mai importante și fericite zile ale vieții noastre — ziua nunții noastre!\n\nNe va face deosebită plăcere să vă avem alături în acest moment special. Ne dorim să petrecem această zi în cercul celor dragi, împărtășind bucurie, emoții calde, zâmbete sincere și creând amintiri care vor rămâne cu noi mulți ani.\n\nAceastă zi va fi plină de iubire, fericire, râs și o atmosferă caldă, iar noi ne dorim cu adevărat să faceți parte din ea. Prezența voastră va fi cel mai prețios dar pentru noi și va face această sărbătoare și mai specială.\n\nAșteptăm cu nerăbdare să vă vedem și să împărtășim împreună această zi minunată!"
   },
+  "chat": {
+    "title": "Chatul nunții noastre",
+    "body": "Am creat un chat comun pe Telegram — acolo vor apărea toate noutățile despre petrecere. Intrați ca să puneți orice întrebare sau să aflați informațiile cele mai recente.\n\nIar în timpul petrecerii trimiteți acolo fotografiile și filmările voastre — așa vom strânge la un loc cele mai frumoase momente ale zilei.",
+    "cta": "Intră în chat"
+  },
   "program": {
     "title": "Program",
+    "navigate": "Deschide în aplicația de navigație",
     "items": [
       {
         "time": "12:00",
         "title": "Întâlnirea mirelui și a miresei",
-        "desc": "Adunarea invitaților, întâlnirea emoționantă a mirilor, ne cunoaștem și ne pregătim de sărbătoare"
+        "desc": "Întâlnirea emoționantă a mirilor și răscumpărarea miresei. Ne cunoaștem și ne pregătim de sărbătoare. Atenție: în acest loc locurile de parcare sunt limitate.",
+        "address": "Strada George Coșbuc 1"
       },
       {
         "time": "14:00",
         "title": "Ceremonia",
-        "desc": "Pregătiți batistele pentru un moment emoționant"
+        "desc": "Ceremonia solemnă va avea loc în aer liber, pe un minunat câmp de lavandă. Pregătiți batistele pentru un moment emoționant, iar apoi ne așteaptă băuturi, mâncare delicioasă, muzică, buna dispoziție și multe locații frumoase pentru fotografii.",
+        "address": "Str. Lavandei 16, Groși"
       },
       {
-        "time": "16:00",
+        "time": "16:30",
         "title": "Sosirea la restaurant",
-        "desc": "Socializăm în zona de welcome, ne ocupăm locurile și ne pregătim să mâncăm delicios"
+        "desc": "Socializăm în zona de welcome cu șampanie. Va fi pregătit un plan de așezare a invitaților la mese — ne găsim locurile și ne pregătim să mâncăm delicios.",
+        "address": "Castel Transilvania",
+        "map": "47.637445, 23.595838"
       },
       {
         "time": "17:00",
         "title": "Începutul petrecerii",
-        "desc": "Ne așteaptă distracția, un prezentator minunat, concursuri și o dispoziție grozavă"
+        "desc": "Ne așteaptă distracția, un prezentator minunat, concursuri și o dispoziție grozavă, precum și mâncare delicioasă și băuturi nelimitate."
       },
       {
-        "time": "20:00",
+        "time": "22:00",
         "title": "Tortul",
         "desc": "Sperăm și știm că veți mai avea energie pentru tortul festiv și dansurile care urmează"
       }
@@ -80,13 +90,9 @@
     "copy": "Copiază",
     "copied": "Copiat"
   },
-  "location": {
-    "title": "Locație",
-    "address": "Castel Transilvania"
-  },
   "footer": {
-    "initials": "D & E",
-    "body": "Dragi oaspeți, vom completa treptat acest site cu detalii utile până în ziua festivității. Vă rugăm să reveniți aproximativ cu două săptămâni înainte de nuntă — până atunci pot apărea adrese actualizate, clarificări în program, evenimente suplimentare și alte noutăți importante.",
+    "title": "În atenția invitaților cu copii",
+    "body": "La locația ceremoniei am împrejmuit unele porțiuni ale terenului cu o plasă verde. Vă rugăm să aveți grijă ca copiii să nu treacă dincolo de ea și să nu atingă plasa.\n\nLa restaurant, în timpul primului dans al mirilor, pe podea va curge fum rece. Vă rugăm să țineți copiii aproape de dumneavoastră, ca să nu alerge în mijlocul ringului de dans.\n\nVă mulțumim sincer pentru înțelegere. Vă iubim!",
     "see_you": "Pe curând",
     "back_to_envelope": "Înapoi la invitație"
   },

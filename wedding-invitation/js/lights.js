@@ -30,6 +30,7 @@ export function initLights() {
   overlay.classList.add("is-animated");
 
   const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+  const tweens = [];
 
   // 1. Похитування кожної лампочки
   const bulbs = document.querySelectorAll(".bulb-item");
@@ -44,28 +45,61 @@ export function initLights() {
     const dur = gsap.utils.random(4, 7.5);
     const rot = gsap.utils.random(10, 16);
 
-    gsap.to(bulb, {
-      rotation: gsap.utils.random(-rot, rot),
-      duration: dur,
-      ease: "sine.inOut",
-      repeat: -1,
-      yoyo: true,
-      delay,
-      overwrite: "auto",
-    });
+    tweens.push(
+      gsap.to(bulb, {
+        rotation: gsap.utils.random(-rot, rot),
+        duration: dur,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
+        delay,
+        overwrite: "auto",
+      })
+    );
   });
 
   // 2. Легке "дихання" нитки
   document.querySelectorAll(".wire-group").forEach((wire) => {
-    gsap.to(wire, {
-      y: gsap.utils.random(-3, 3),
-      duration: gsap.utils.random(5, 9),
-      ease: "sine.inOut",
-      repeat: -1,
-      yoyo: true,
-      force3D: true,
-    });
+    tweens.push(
+      gsap.to(wire, {
+        y: gsap.utils.random(-3, 3),
+        duration: gsap.utils.random(5, 9),
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
+        force3D: true,
+      })
+    );
   });
+
+  // Гірлянда живе тільки у верхній частині сторінки. Поки її не видно (або вкладка
+  // неактивна), безкінечні твіни перемальовували SVG щокадру — тримаємо їх на паузі.
+  const MARGIN = 120;
+  let onScreen = true;
+
+  // Читаємо геометрію напряму: записи IntersectionObserver приходять пачкою і
+  // можуть містити вже застарілий стан, тому вони служать лише дешевим тригером.
+  const isOnScreen = () => {
+    const rect = overlay.getBoundingClientRect();
+    return rect.bottom > -MARGIN && rect.top < window.innerHeight + MARGIN;
+  };
+
+  const syncPlayback = () => {
+    const active = onScreen && !document.hidden;
+    tweens.forEach((tween) => (active ? tween.resume() : tween.pause()));
+    overlay.classList.toggle("is-paused", !active);
+  };
+
+  const refresh = () => {
+    onScreen = isOnScreen();
+    syncPlayback();
+  };
+
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(refresh, { rootMargin: `${MARGIN}px` }).observe(overlay);
+  }
+
+  document.addEventListener("visibilitychange", refresh);
 
   // 3. Параллакс від руху миші — лише для десктопа (на тачі марно і грузить)
   if (coarsePointer) return;
@@ -100,6 +134,7 @@ export function initLights() {
   document.addEventListener(
     "mousemove",
     (e) => {
+      if (!onScreen) return;
       mouseX = e.clientX / window.innerWidth;
       mouseY = e.clientY / window.innerHeight;
       if (!rafPending) {

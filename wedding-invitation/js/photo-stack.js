@@ -1,6 +1,7 @@
 const BASE = "images/dimalena/";
 const PREFIX = "photo";
 const MAX_PHOTOS = 24;
+const PROBE_CHUNK = 6;
 const VISIBLE_STACK = 4;
 const EXTS = ["jpeg", "jpg", "png", "webp", "svg"];
 
@@ -32,16 +33,28 @@ async function findPhoto(i) {
   return null;
 }
 
+// Пробуємо пачками: паралельно (швидко), але зупиняємось на першій дірці —
+// інакше сканування до MAX_PHOTOS давало десятки марних 404 на кожному відкритті.
 async function detectPhotos() {
-  const found = await Promise.all(
-    Array.from({ length: MAX_PHOTOS }, (_, index) => findPhoto(index + 1))
-  );
-
   const urls = [];
-  for (const url of found) {
-    if (!url) break;
-    urls.push(url);
+
+  for (let start = 1; start <= MAX_PHOTOS; start += PROBE_CHUNK) {
+    const size = Math.min(PROBE_CHUNK, MAX_PHOTOS - start + 1);
+    // eslint-disable-next-line no-await-in-loop
+    const batch = await Promise.all(
+      Array.from({ length: size }, (_, k) => findPhoto(start + k))
+    );
+
+    const gap = batch.indexOf(null);
+    if (gap === -1) {
+      urls.push(...batch);
+      continue;
+    }
+
+    urls.push(...batch.slice(0, gap));
+    break;
   }
+
   return urls;
 }
 
@@ -60,9 +73,12 @@ async function preloadPhotos(urls) {
   const priority = urls.slice(0, VISIBLE_STACK);
   await Promise.all(priority.map(preloadOne));
 
-  urls.slice(VISIBLE_STACK).forEach((url) => {
-    preloadOne(url);
-  });
+  // Решту тягнемо по одній, щоб фонове довантаження не забирало канал
+  // у того, що користувач бачить прямо зараз.
+  void urls.slice(VISIBLE_STACK).reduce(
+    (chain, url) => chain.then(() => preloadOne(url)),
+    Promise.resolve()
+  );
 }
 
 function showState(state) {

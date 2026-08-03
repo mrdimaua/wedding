@@ -1,58 +1,16 @@
+import { bindCopyButtons } from "./copy.js";
+
 const BASE = "images/restaurant/";
 const MAX_PHOTOS = 10;
+const PROBE_CHUNK = 6;
 const EXTS = ["jpg", "jpeg", "png", "webp", "svg"];
 const AUTOPLAY_MS = 5000;
 
 let initialized = false;
 
-/* ---------- Копіювання ---------- */
-
-function copyText(text) {
-  if (navigator.clipboard?.writeText) {
-    return navigator.clipboard.writeText(text);
-  }
-  // Fallback для старих браузерів / file://
-  return new Promise((resolve, reject) => {
-    try {
-      const ta = document.createElement("textarea");
-      ta.value = text;
-      ta.style.position = "fixed";
-      ta.style.opacity = "0";
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand("copy");
-      document.body.removeChild(ta);
-      resolve();
-    } catch (err) {
-      reject(err);
-    }
-  });
-}
-
 function initCopyButtons() {
-  document.querySelectorAll(".copy-btn[data-copy-target]").forEach((btn) => {
-    btn.addEventListener("click", async () => {
-      const target = document.getElementById(btn.dataset.copyTarget);
-      if (!target) return;
-      const text = (target.textContent || "").trim();
-
-      try {
-        await copyText(text);
-      } catch {
-        return;
-      }
-
-      btn.classList.add("is-copied");
-
-      clearTimeout(btn._copyTimer);
-      btn._copyTimer = setTimeout(() => {
-        btn.classList.remove("is-copied");
-      }, 1500);
-    });
-  });
+  bindCopyButtons();
 }
-
-/* ---------- Визначення фото в папці ---------- */
 
 function imageExists(url) {
   return new Promise((resolve) => {
@@ -72,16 +30,27 @@ async function findPhotoForIndex(i) {
   return null;
 }
 
+// Пачками, із зупинкою на першій дірці — щоб не молотити 404 до MAX_PHOTOS.
 async function detectPhotos() {
-  const found = await Promise.all(
-    Array.from({ length: MAX_PHOTOS }, (_, index) => findPhotoForIndex(index + 1))
-  );
-
   const urls = [];
-  for (const url of found) {
-    if (!url) break;
-    urls.push(url);
+
+  for (let start = 1; start <= MAX_PHOTOS; start += PROBE_CHUNK) {
+    const size = Math.min(PROBE_CHUNK, MAX_PHOTOS - start + 1);
+    // eslint-disable-next-line no-await-in-loop
+    const batch = await Promise.all(
+      Array.from({ length: size }, (_, k) => findPhotoForIndex(start + k))
+    );
+
+    const gap = batch.indexOf(null);
+    if (gap === -1) {
+      urls.push(...batch);
+      continue;
+    }
+
+    urls.push(...batch.slice(0, gap));
+    break;
   }
+
   return urls;
 }
 
