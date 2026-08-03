@@ -8,6 +8,7 @@ const FALLBACK_LOCALE = {
   screen1: {
     invitation_arrived: "Вам надійшло запрошення!",
     tap_envelope: "Натисніть на конверт!",
+    updated: "Оновлено",
   },
   screen2: {
     groom_name: "Дмитро",

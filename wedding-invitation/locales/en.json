@@ -9,7 +9,8 @@
   },
   "screen1": {
     "invitation_arrived": "You have received an invitation!",
-    "tap_envelope": "Tap the envelope!"
+    "tap_envelope": "Tap the envelope!",
+    "updated": "Updated"
   },
   "screen2": {
     "groom_name": "Dmytro",
